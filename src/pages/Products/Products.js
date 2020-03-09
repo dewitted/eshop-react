@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Product from '../../components/Product'
 
-export default class ProductsPage extends Component {
+export default class Products extends Component {
   state = {
     products: []
   }
@@ -17,7 +17,7 @@ export default class ProductsPage extends Component {
   render() {
     const { products } = this.state
     return (
-      <div className="container">
+      <div className='container'>
         {products.map(product => (
           <Product key={product.id} product={product} />
         ))}
