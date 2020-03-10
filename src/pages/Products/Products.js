@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import Product from '../../components/Product'
-
+import { Flex } from '../../components/shared/Flex/Flex'
+import c from './Products.module.css'
+import { CreateProductModal } from '../../components/CreateProductModal/CreateProductModal'
 export default class Products extends Component {
   state = {
-    products: []
+    products: [],
+    isModalOpen: false
   }
   componentDidMount() {
     const fetchProducts = async () => {
@@ -14,14 +17,28 @@ export default class Products extends Component {
     fetchProducts()
   }
 
+  toggleModalHandler = () =>
+    this.setState(prevState => ({
+      isModalOpen: !prevState.isModalOpen
+    }))
+
   render() {
-    const { products } = this.state
+    const { products, isModalOpen } = this.state
     return (
-      <div className='container'>
-        {products.map(product => (
-          <Product key={product.id} product={product} />
-        ))}
-      </div>
+      <>
+        <div className={c.buttonWrapper}>
+          <button onClick={this.toggleModalHandler}>Create product</button>
+        </div>
+        <Flex wrap='wrap' justify='space-between'>
+          {products.map(product => (
+            <Product key={product.id} product={product} />
+          ))}
+        </Flex>
+        <CreateProductModal
+          isModalOpen={isModalOpen}
+          toggleModal={this.toggleModalHandler}
+        />
+      </>
     )
   }
 }
