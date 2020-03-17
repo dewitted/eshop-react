@@ -8,24 +8,27 @@ import { routes } from './routes'
 function App() {
   const [cart, setCart] = useState([])
 
-  // 1. Cia reikia pushinti produktus kurie yra carte
-  // 2. Produktai cart'e turi buti sumuojami (quantity/suma)
-  // 3. Carte negali buti daugiau produktu nei produkto quantity
-  // 4. Naunaudoti localStorage
+  // +1. Cia reikia pushinti produktus kurie yra carte
+  // +2. Produktai cart'e turi buti sumuojami (quantity/suma)
+  // +3. Carte negali buti daugiau produktu nei produkto quantity
+  // +4. Naunaudoti localStorage
+
   // 5. Atvaizduoti produktus cart'e
   // 6. Virs "CART" turi buti burbuliukas indikuojantis produktu skaiciu
 
   return (
     <BrowserRouter>
       <Container>
-        <Nav />
+        <Nav cart={cart} />
         <main>
           <Switch>
             {routes.map((route, index) => (
               <Route
                 key={index}
                 path={route.path}
-                component={() => <route.component />}
+                component={() => (
+                  <route.component cart={cart} setCart={setCart} />
+                )}
                 exact={route.isExact}
               />
             ))}
