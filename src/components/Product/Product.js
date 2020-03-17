@@ -1,13 +1,15 @@
 import React from 'react'
 import c from './Product.module.css'
+import { Button } from '../Button/Button'
+import { Flex } from '../shared/Flex/Flex'
 export const Product = ({ product }) => {
   const { image, name, description, price, quantity } = product
-  // const shortDescription = description.substring(0, 100) + '...'
   const shortDescription =
     (description || '')
       .split(' ')
       .splice(0, 20)
       .join(' ') + '...'
+  const addToCartHandler = () => {}
   return (
     <div className={c.product}>
       <div className={c.image}>
@@ -18,8 +20,10 @@ export const Product = ({ product }) => {
       <div className={c.bold}>Price: {price}€</div>
       <div className={c.bold}>{quantity}</div>
       <div className={c.buttonList}>
-        <button>Add to cart</button>
-        <button>Preview</button>
+        <Flex justify='center'>
+          <Button onClick={addToCartHandler}>Add to cart</Button>
+          <Button type='secondary'>Preview</Button>
+        </Flex>
       </div>
     </div>
   )

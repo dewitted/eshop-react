@@ -1,25 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import c from './CreateProductModal.module.css'
 import { random } from 'faker'
-//TODO: no image present
-//TODO: quantity is string
-//TODO: user can push empty objects
-//TODO: close the modal
-//TODO: update products list
-//TODO: show success message and clear inputs on create
 
-export const CreateProductModal = ({ isModalOpen, toggleModal }) => {
-  const [formState, setFormState] = useState({
-    id: random.uuid(),
-    name: '',
-    description: '',
-    price: 0,
-    quantity: '',
-    image: `https://picsum.photos/id/${random.number(200) || 1}/600`
-  })
+//TODO: update products list
+const emptyObject = () => ({
+  id: random.uuid(),
+  name: '',
+  description: '',
+  price: 0,
+  quantity: '',
+  image: `https://picsum.photos/id/${random.number(200) || 1}/600`
+})
+
+export const CreateProductModal = ({
+  isModalOpen,
+  toggleModal,
+  addNewProduct
+}) => {
+  const [formState, setFormState] = useState(emptyObject())
   const [errors, setErrors] = useState({})
   const [success, setSuccess] = useState(false)
+
+  const resetForm = () => {
+    setFormState(emptyObject())
+    setSuccess(false)
+  }
+
+  //Second option to reset form
+  useEffect(() => {
+    resetForm()
+  }, [isModalOpen])
 
   const inputChangeHandler = (formStateKey, event) =>
     setFormState({
@@ -74,18 +85,12 @@ export const CreateProductModal = ({ isModalOpen, toggleModal }) => {
         },
         body: JSON.stringify(formStateCopy)
       })
-      response.status === 201 && setSuccess(true)
+      if (response.status === 201) {
+        setSuccess(true)
+        const newProduct = await response.json()
+        addNewProduct(newProduct)
+      }
     }
-  }
-  const resetForm = () => {
-    setFormState({
-      ...formState,
-      name: '',
-      description: '',
-      price: 0,
-      quantity: ''
-    })
-    setSuccess(false)
   }
 
   return (

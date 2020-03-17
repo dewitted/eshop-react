@@ -29,6 +29,10 @@ const justifyHelper = (styles, justify, c) => {
       styles.push(c.flexEnd)
       break
     }
+    case 'center': {
+      styles.push(c.center)
+      break
+    }
     default: {
       break
     }

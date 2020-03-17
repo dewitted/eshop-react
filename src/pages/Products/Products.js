@@ -1,44 +1,39 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import Product from '../../components/Product'
 import { Flex } from '../../components/shared/Flex/Flex'
-import c from './Products.module.css'
 import { CreateProductModal } from '../../components/CreateProductModal/CreateProductModal'
-export default class Products extends Component {
-  state = {
-    products: [],
-    isModalOpen: false
-  }
-  componentDidMount() {
+import { Button } from '../../components/Button/Button'
+
+const Products = () => {
+  const [products, setProducts] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const toggleModalHandler = () => setIsModalOpen(!isModalOpen)
+  const addNewProduct = newProduct => setProducts([newProduct, ...products])
+
+  useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch('http://localhost:4000/products')
       const products = await response.json()
-      this.setState({ products })
+      setProducts(products)
     }
     fetchProducts()
-  }
+  }, [])
 
-  toggleModalHandler = () =>
-    this.setState(prevState => ({
-      isModalOpen: !prevState.isModalOpen
-    }))
-
-  render() {
-    const { products, isModalOpen } = this.state
-    return (
-      <>
-        <div className={c.buttonWrapper}>
-          <button onClick={this.toggleModalHandler}>Create product</button>
-        </div>
-        <Flex wrap='wrap' justify='space-between'>
-          {products.map(product => (
-            <Product key={product.id} product={product} />
-          ))}
-        </Flex>
-        <CreateProductModal
-          isModalOpen={isModalOpen}
-          toggleModal={this.toggleModalHandler}
-        />
-      </>
-    )
-  }
+  return (
+    <>
+      <Button onClick={toggleModalHandler}>Create Product</Button>
+      <Flex wrap='wrap' justify='space-between'>
+        {products.map(product => (
+          <Product key={product.id} product={product} />
+        ))}
+      </Flex>
+      <CreateProductModal
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModalHandler}
+        addNewProduct={addNewProduct}
+      />
+    </>
+  )
 }
+export default Products
