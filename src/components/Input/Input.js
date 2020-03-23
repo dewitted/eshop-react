@@ -16,20 +16,22 @@ export const Input = ({
       {type === 'textarea' && (
         <textarea
           id={inputKey}
-          rows="4"
+          rows='4'
           value={value}
           onChange={event => changeHandler(inputKey, event)}
         />
       )}
       {type === 'input' && (
         <input
-          type="text"
+          type='text'
           id={inputKey}
           value={value}
           onChange={event => changeHandler(inputKey, event)}
         />
       )}
-      {errors.name && <div className={classes.error}>{errors.name}</div>}
+      {errors[inputKey] && (
+        <div className={classes.error}>{errors[inputKey]}</div>
+      )}
       {children}
     </div>
   )

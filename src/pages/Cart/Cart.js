@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Flex } from '../../components/shared/Flex/Flex'
 import Product from '../../components/Product'
 import classes from './Cart.module.css'
 import { Button } from '../../components/shared/Button/Button'
 import { useSelector } from 'react-redux'
+import { CreateFormModal } from '../../components/CreateFormModal/CreateFormModal'
 
-// 1. TODO: Rodyti checkout button'a tik tada kai yra karte produktu
+// 1. TODO: Rodyti checkout button'a tik tada kai yra karte produktu++
 // 2. TODO: Checkout forma turi atsirasti tik poto, kai paspaudziame checkout.
 // 3. TODO: Sukurti forma naudojant Input.js komponenta.
 //          Formoje turi buti sie fieldai: vardas, adresas, tel nr., el. p.
@@ -20,12 +21,14 @@ import { useSelector } from 'react-redux'
 // !----------------------------------------------------------------!
 // 8. TODO: <-- BONUS TASK --> Pasidaryti api wrapperi
 export const Cart = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const cart = useSelector(state => state.cart)
   const isSomeItemsInCart = !!cart.length
+  const toggleModalHandler = () => setIsModalOpen(!isModalOpen)
   return (
     <>
       <Flex
-        wrap="wrap"
+        wrap='wrap'
         justify={isSomeItemsInCart ? 'space-between' : 'center'}
       >
         {isSomeItemsInCart ? (
@@ -36,10 +39,15 @@ export const Cart = () => {
           <h1 className={classes.heading}>Sorry, no items in cart :(</h1>
         )}
       </Flex>
-      <Flex justify="center">
-        <Button>Checkout</Button>
+      <Flex justify='center'>
+        {isSomeItemsInCart && (
+          <Button onClick={toggleModalHandler}>Checkout</Button>
+        )}
       </Flex>
-      {/* cia reikia kad butu forma */}
+      <CreateFormModal
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModalHandler}
+      />
     </>
   )
 }

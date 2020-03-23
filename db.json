@@ -301,6 +301,65 @@
       "brand": "payment"
     }
   ],
-  "customers": [],
-  "orders": []
+  "customers": [
+    {
+      "id": "aa0a4ab1-bb14-4d3d-baea-c22dc13d69e6",
+      "firstName": "DDD",
+      "lastName": "ffffff",
+      "phone": "664161465895",
+      "email": "intexas123@gmail.com"
+    },
+    {
+      "id": "a4f894b9-d38c-4804-8fba-706d355437f3",
+      "firstName": "asdasgf",
+      "lastName": "adasdasf",
+      "phone": "494966958",
+      "email": "intexas123@gmail.com"
+    },
+    {
+      "id": "3802846d-b0f6-4126-9a1f-f07cb80c5283",
+      "firstName": "Dominykas",
+      "lastName": "Brazauskas",
+      "phone": "5959595959",
+      "email": "brazauskas9@gmail.com"
+    }
+  ],
+  "orders": [
+    {
+      "id": "e55ee31f-6f63-4d18-82d7-8f10f77fa922",
+      "products": [
+        "dc6de408-ffa2-4b5c-b3ad-c7126b0e4846"
+      ],
+      "sum": 98,
+      "customerId": "2d35af0c-35cd-4165-9c70-c0f0981930a6",
+      "orderDate": 1584985076882
+    },
+    {
+      "id": "e4b22129-6082-4fa3-a2a0-1a06bf840009",
+      "products": [
+        "dc6de408-ffa2-4b5c-b3ad-c7126b0e4846"
+      ],
+      "sum": 98,
+      "customerId": "aa0a4ab1-bb14-4d3d-baea-c22dc13d69e6",
+      "orderDate": 1584986149506
+    },
+    {
+      "id": "fb332b16-fb29-4a45-a479-79fc5ad1fe82",
+      "products": [
+        "dc6de408-ffa2-4b5c-b3ad-c7126b0e4846"
+      ],
+      "sum": 98,
+      "customerId": "a4f894b9-d38c-4804-8fba-706d355437f3",
+      "orderDate": 1584986471483
+    },
+    {
+      "id": "60d280c8-7bf4-4a94-bbee-4cf2d88df6f1",
+      "products": [
+        "dc6de408-ffa2-4b5c-b3ad-c7126b0e4846"
+      ],
+      "sum": 98,
+      "customerId": "3802846d-b0f6-4126-9a1f-f07cb80c5283",
+      "orderDate": 1584990084518
+    }
+  ]
 }
